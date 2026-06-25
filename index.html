@@ -3,557 +3,384 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第４９回小松市どんどんまつり</title>
+    <title>第49回小松市どんどんまつり</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        night: '#090d16',
+                        darkgray: '#131926',
+                        neonorange: '#ff4500',
+                        neongold: '#eab308',
+                        accentred: '#e11d48'
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans JP', 'sans-serif'],
+                        serif: ['Kaisei Opti', 'serif'],
+                        display: ['Dela Gothic One', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Kaisei+Opti:wght@500;700&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
     <style>
-        /* --- 基本設定 & リセット --- */
-        :root {
-            --primary-color: #ff3366; /* 情熱的なピンク・赤 */
-            --secondary-color: #ff9900; /* 活気のあるオレンジ */
-            --accent-color: #220044; /* 夜空・あんどんを引き立てる深紫 */
-            --text-dark: #333333;
-            --text-light: #ffffff;
-            --bg-light: #fdfbf7; /* 温かみのあるオフホワイト */
+        html {
+            scroll-behavior: smooth;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            line-height: 1.8;
-            color: var(--text-dark);
-            background-color: var(--bg-light);
+            background-color: #090d16;
+            color: #f8fafc;
             overflow-x: hidden;
         }
-
-        h1, h2, h3 {
-            font-weight: 700;
-            line-height: 1.3;
+        /* スクロールバーのカスタマイズ */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-
-        ul {
-            list-style: none;
+        ::-webkit-scrollbar-track {
+            background: #090d16;
         }
-
-        /* --- アニメーション設定 --- */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        ::-webkit-scrollbar-thumb {
+            background: #ff4500;
+            border-radius: 4px;
         }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        /* ネオンテキストエフェクト */
+        .neon-text-orange {
+            text-shadow: 0 0 10px rgba(255, 69, 0, 0.6), 0 0 20px rgba(255, 69, 0, 0.4);
         }
-
-        .animate-fade-in {
-            animation: fadeInUp 1s ease-out forwards;
+        .neon-text-gold {
+            text-shadow: 0 0 10px rgba(234, 179, 8, 0.6), 0 0 20px rgba(234, 179, 8, 0.4);
         }
-
-        /* --- コンポーネント: セクション共通 --- */
-        .section {
-            padding: 80px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            color: var(--accent-color);
-            margin-bottom: 40px;
+        /* 和風ボーダー・グラデーション */
+        .japanese-border {
             position: relative;
-            padding-bottom: 10px;
         }
-
-        .section-title::after {
+        .japanese-border::after {
             content: '';
             position: absolute;
             bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            border-radius: 2px;
-        }
-
-        /* ダミー画像プレースホルダー */
-        .image-placeholder {
-            background: linear-gradient(135deg, #e0e0e0 25%, #f4f4f4 50%, #e0e0e0 75%);
-            background-size: 400% 400%;
-            color: #666;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            text-align: center;
-            border-radius: 8px;
-            border: 2px dashed #bbb;
-            padding: 20px;
-        }
-
-        /* --- ヒーローセクション（ファーストビュー） --- */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: var(--text-light);
-            background: linear-gradient(135deg, #110022 0%, #330011 50%, #550022 100%);
-            padding: 40px 20px;
-        }
-
-        .hero-bg-placeholder {
-            position: absolute;
-            top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background-color: var(--accent-color);
-            opacity: 0.4;
-            z-index: 1;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            padding-bottom: 20px;
-            color: rgba(255,255,255,0.2);
-            font-size: 1.2rem;
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-        }
-
-        .hero-tag {
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            color: var(--text-light);
-            padding: 6px 20px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-
-        .hero-title {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.7);
-            span {
-                display: block;
-                font-size: 1.5rem;
-                color: var(--secondary-color);
-                margin-bottom: 10px;
-            }
-        }
-
-        .hero-catch {
-            font-size: 1.5rem;
-            margin-bottom: 40px;
-            font-weight: 500;
-            color: #fff9e6;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-        }
-
-        .hero-info {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 20px 30px;
-            border-radius: 12px;
-            display: inline-block;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .hero-date {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: var(--secondary-color);
-            margin-bottom: 5px;
-        }
-
-        .hero-place {
-            font-size: 1.1rem;
-        }
-
-        /* --- 祭りの特徴セクション --- */
-        .features-bg {
-            background-color: #ffffff;
-        }
-
-        .features-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .features-text h3 {
-            font-size: 1.8rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        .features-text p {
-            margin-bottom: 20px;
-            font-size: 1.05rem;
-        }
-
-        .target-box {
-            background-color: #fff0f5;
-            border-left: 5px solid var(--primary-color);
-            padding: 15px 20px;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .target-box h4 {
-            color: var(--accent-color);
-            margin-bottom: 5px;
-        }
-
-        .features-image {
-            height: 350px;
-            width: 100%;
-        }
-
-        /* --- イベントスケジュール・出し物セクション --- */
-        .events-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        .event-card {
-            background: #ffffff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .event-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
-
-        .event-card-img {
-            height: 180px;
-            border-radius: 12px 12px 0 0;
-            border: none;
-            border-bottom: 1px solid #eee;
-        }
-
-        .event-card-content {
-            padding: 20px;
-            flex-grow: 1;
-        }
-
-        .event-card-title {
-            font-size: 1.25rem;
-            color: var(--accent-color);
-            margin-bottom: 10px;
-        }
-
-        .event-card-desc {
-            font-size: 0.95rem;
-            color: #555;
-        }
-
-        /* --- アクセス情報セクション --- */
-        .access-bg {
-            background-color: #fff9f0;
-        }
-
-        .access-info-block {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-
-        .access-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-        }
-
-        .access-item h3 {
-            font-size: 1.4rem;
-            color: var(--secondary-color);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .access-item p {
-            font-size: 1.05rem;
-            margin-bottom: 10px;
-        }
-
-        .parking-list {
-            margin-top: 15px;
-            background: var(--bg-light);
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 0.95rem;
-        }
-
-        .parking-list li {
-            position: relative;
-            padding-left: 15px;
-            margin-bottom: 5px;
-        }
-
-        .parking-list li::before {
-            content: "•";
-            color: var(--secondary-color);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-        }
-
-        .price-box {
-            grid-column: 1 / -1;
-            background: linear-gradient(90deg, var(--accent-color), #440066);
-            color: var(--text-light);
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .price-box span {
-            color: var(--secondary-color);
-            font-size: 1.6rem;
-            margin-left: 10px;
-        }
-
-        /* --- フッターセクション --- */
-        .footer {
-            background-color: var(--accent-color);
-            color: var(--text-light);
-            padding: 60px 20px 20px;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 40px;
-        }
-
-        .footer-brand h2 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            color: var(--secondary-color);
-        }
-
-        .footer-brand p {
-            font-size: 0.95rem;
-            color: #ccc;
-        }
-
-        .footer-contact h3 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-        }
-
-        .footer-contact p {
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-
-        .footer-btn {
-            display: inline-block;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            color: var(--text-light);
-            padding: 12px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 15px;
-            transition: transform 0.2s;
-            animation: pulse 2s infinite;
-        }
-
-        .footer-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            font-size: 0.85rem;
-            color: #888;
-        }
-
-        /* --- レスポンシブデザイン --- */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2rem;
-            }
-            .hero-catch {
-                font-size: 1.2rem;
-            }
-            .features-container {
-                grid-template-columns: 1fr;
-            }
-            .features-image {
-                height: 250px;
-                order: -1; /* スマホ時は画像を上に */
-            }
-            .access-grid {
-                grid-template-columns: 1fr;
-            }
-            .footer-container {
-                grid-template-columns: 1fr;
-            }
-            .section {
-                padding: 50px 20px;
-            }
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff4500, #eab308, #ff4500, transparent);
         }
     </style>
 </head>
-<body>
+<body class="font-sans antialiased">
 
-    <header class="hero">
-        <div class="hero-bg-placeholder">【ここに祭りのメインビジュアル背景画像】</div>
-        <div class="hero-content animate-fade-in">
-            <span class="hero-tag">第49回</span>
-            <h1 class="hero-title"><span>小松市どんどんまつり</span></h1>
-            <p class="hero-catch">小松の秋を彩る、熱気と光のサマー＆オータムカーニバル！</p>
-            <div class="hero-info">
-                <p class="hero-date">令和7年（2025年）10月11日（土）～10月12日（日）</p>
-                <p class="hero-place">会場：小松駅周辺</p>
+    <header class="fixed top-0 left-0 w-full z-50 bg-night/80 backdrop-blur-md border-b border-white/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <a href="#" class="font-display text-xl sm:text-2xl tracking-wider bg-gradient-to-r from-neonorange to-neongold bg-clip-text text-transparent">
+                    どんどんまつり
+                </a>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-widest text-slate-300">
+                <a href="#about" class="hover:text-neonorange transition-colors duration-300">祭りの特徴</a>
+                <a href="#events" class="hover:text-neonorange transition-colors duration-300">イベント内容</a>
+                <a href="#access" class="hover:text-neonorange transition-colors duration-300">アクセス・概要</a>
+            </nav>
+
+            <div>
+                <a href="#access" class="inline-flex items-center justify-center px-5 py-2.5 text-xs font-bold tracking-widest text-night bg-gradient-to-r from-neongold to-neonorange rounded-full shadow-lg shadow-neonorange/20 hover:shadow-neonorange/40 hover:scale-105 transition-all duration-300 transform">
+                    アクセス情報
+                </a>
             </div>
         </div>
     </header>
 
-    <section class="section features-bg">
-        <h2 class="section-title">祭りの特徴</h2>
-        <div class="features-container">
-            <div class="features-text animate-fade-in">
-                <h3>進化し続ける地域密着型のお祭り</h3>
-                <p>49回目を迎える小松市の秋の代表的な一大イベント。市民が一体となって盛り上がる「どんどん小松輪踊り」をはじめ、近年では光の演出や新たなダンスコンテスト、被災地復興支援を兼ねた伝統芸能の運行など、時代に合わせて進化し続けています。</p>
-                <div class="target-box">
-                    <h4>こんな方におすすめ！</h4>
-                    <p>家族連れ、美味しいもの好き、地元カルチャーやダンス・祭りの熱気を感じたい方</p>
-                </div>
-            </div>
-            <div class="image-placeholder features-image animate-fade-in">
-                【ここに祭りのにぎわい・伝統芸能の画像】
-            </div>
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1542640244-7e672d6cef21?auto=format&fit=crop&w=1920&q=80" alt="日本の祭り 夜景" class="w-full h-full object-cover object-center scale-105 animate-[pulse_8s_infinite] opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-t from-night via-night/60 to-night/80"></div>
+            <div class="absolute inset-0 bg-radial-gradient from-transparent to-night opacity-80"></div>
         </div>
-    </section>
 
-    <section class="section">
-        <h2 class="section-title">注目のイベント・出し物</h2>
-        <div class="events-grid">
+        <div class="relative z-10 max-w-5xl mx-auto px-4 text-center">
+            <span class="inline-block px-4 py-1.5 mb-6 text-xs sm:text-sm font-bold tracking-widest text-neongold border border-neongold/30 rounded-full bg-neongold/5 animate-pulse">
+                第49回小松市どんどんまつり開催決定
+            </span>
             
-            <div class="event-card animate-fade-in">
-                <div class="image-placeholder event-card-img">【ここに あんどん小径 の画像】</div>
-                <div class="event-card-content">
-                    <h3 class="event-card-title">あんどん小径・大型あんどん展示</h3>
-                    <p class="event-card-desc">市内小学生のメッセージが書かれた約300個の小型あんどん等が「れんが花道通り」を幻想的に彩ります。</p>
-                </div>
-            </div>
+            <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-8 leading-tight">
+                <span class="block text-white mb-2">小松の秋を彩る、熱気と光の</span>
+                <span class="block bg-gradient-to-r from-neonorange via-amber-400 to-neongold bg-clip-text text-transparent drop-shadow-sm font-display py-2">
+                    サマー＆オータムカーニバル！
+                </span>
+            </h1>
 
-            <div class="event-card animate-fade-in">
-                <div class="image-placeholder event-card-img">【ここに 輪島キリコ の画像】</div>
-                <div class="event-card-content">
-                    <h3 class="event-card-title">輪島キリコの展示・運行</h3>
-                    <p class="event-card-desc">能登の熱気を感じる大迫力のキリコが会場をダイナミックに練り歩きます。</p>
-                </div>
-            </div>
+            <p class="max-w-2xl mx-auto text-base sm:text-lg text-slate-300 font-light tracking-wide leading-relaxed mb-12 px-4">
+                令和7年10月11日(土)・12日(日)開催。伝統的な「どんどん小松輪踊り」から、大迫力の「輪島キリコ」、精度に磨きをかけた幻想的な「あんどん小径」まで、進化し続ける地域密着型の一大叙事詩がここに開幕。
+            </p>
 
-            <div class="event-card animate-fade-in">
-                <div class="image-placeholder event-card-img">【ここに ダンスステージ の画像】</div>
-                <div class="event-card-content">
-                    <h3 class="event-card-title">ダンスコンテスト＆ステージ</h3>
-                    <p class="event-card-desc">エネルギッシュなダンスチームが集結する新企画や、多彩なステージパフォーマンスが会場を熱くします。</p>
-                </div>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 px-4">
+                <a href="#events" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-neonorange to-amber-600 font-bold tracking-widest text-sm rounded-lg shadow-xl shadow-neonorange/30 hover:shadow-neonorange/50 hover:-translate-y-0.5 transition-all duration-300">
+                    見どころをチェック
+                </a>
+                <a href="#about" class="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 font-bold tracking-widest text-sm rounded-lg transition-all duration-300">
+                    祭りの特徴を知る
+                </a>
             </div>
+        </div>
 
-            <div class="event-card animate-fade-in">
-                <div class="image-placeholder event-card-img">【ここに グルメ横丁 の画像】</div>
-                <div class="event-card-content">
-                    <h3 class="event-card-title">小松YEGグルメブース</h3>
-                    <p class="event-card-desc">小松の食材をふんだんに使った「こまつピザ」など、美味しい地元グルメが大集合するグルメ横丁！</p>
-                </div>
-            </div>
-
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 flex flex-col items-center">
+            <span class="text-[10px] tracking-widest text-slate-500 uppercase mb-2">Scroll Down</span>
+            <div class="w-[1px] h-12 bg-gradient-to-b from-neonorange to-transparent animate-bounce"></div>
         </div>
     </section>
 
-    <section class="section access-bg">
-        <h2 class="section-title">アクセス・駐車場情報</h2>
-        <div class="access-info-block animate-fade-in">
-            <div class="access-grid">
+
+    <section id="about" class="py-24 relative overflow-hidden bg-darkgray">
+        <div class="absolute -top-40 -right-40 w-96 h-96 bg-neonorange/5 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-neongold/5 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <h2 class="font-display text-3xl sm:text-4xl tracking-wider mb-4 text-white japanese-border pb-4">祭りの特徴と熱量</h2>
+                <p class="text-slate-400 text-sm sm:text-base tracking-wide leading-relaxed">
+                    49回目を迎える小松市の秋の代表的な一大イベント。市民が一体となって盛り上がる伝統をベースに、時代に合わせて進化し続ける地域密着型のお祭りです。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 
-                <div class="access-item">
-                    <h3>電車でのアクセス</h3>
-                    <p><strong>JR小松駅から徒歩すぐ</strong></p>
-                    <p>駅周辺の「駅前れんが花道通り」や「小松駅前市民公園」などがすぐ会場となります。</p>
+                <div class="group bg-night border border-white/5 rounded-2xl overflow-hidden hover:border-neonorange/30 transition-all duration-500 hover:shadow-2xl hover:shadow-neonorange/5 transform hover:-translate-y-2">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1601042879364-f3947d3f9c16?auto=format&fit=crop&w=800&q=80" alt="日本の伝統的な踊り" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-night via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-6 sm:p-8">
+                        <div class="text-neonorange font-bold text-xs tracking-widest uppercase mb-2">Tradition & Unity</div>
+                        <h3 class="font-serif text-xl font-bold mb-4 text-white group-hover:text-neonorange transition-colors duration-300">どんどん小松輪踊り</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed font-light">
+                            市民が一体となって輪を作り、鳴り響く音頭に合わせて踊り明かす、まつりの核となる伝統行事。その圧倒的な一体感と熱気は、見る者すべてを魅了します。
+                        </p>
+                    </div>
                 </div>
 
-                <div class="access-item">
-                    <h3>お車でのアクセス・駐車場</h3>
-                    <p><strong>臨時無料駐車場あり</strong></p>
-                    <p>【利用時間】<br>11日(土) 9:00〜21:00 / 12日(日) 9:00〜18:00</p>
-                    <ul class="parking-list">
-                        <li>コマツウェイ総合研修センタ北側用地（こまつの杜北側）</li>
-                        <li>小松商工会議所駐車場</li>
-                        <li>小松市役所駐車場 など</li>
-                    </ul>
+                <div class="group bg-night border border-white/5 rounded-2xl overflow-hidden hover:border-neongold/30 transition-all duration-500 hover:shadow-2xl hover:shadow-neongold/5 transform hover:-translate-y-2">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80" alt="夜を彩る光の演出" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-night via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-6 sm:p-8">
+                        <div class="text-neongold font-bold text-xs tracking-widest uppercase mb-2">Light & Evolution</div>
+                        <h3 class="font-serif text-xl font-bold mb-4 text-white group-hover:text-neongold transition-colors duration-300">光の演出とモダンな進化</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed font-light">
+                            伝統を守りつつも、近年では現代的な光の演出や新たなダンスコンテストを導入。世代を超えて誰もが最高にエキサイティングできる空間へと進化しています。
+                        </p>
+                    </div>
                 </div>
 
-                <div class="price-box">
-                    入場料金：<span>無料</span> <small>（※飲食ブースや一部イベントでの購入・参加は有料）</small>
+                <div class="group bg-night border border-white/5 rounded-2xl overflow-hidden hover:border-neonorange/30 transition-all duration-500 hover:shadow-2xl hover:shadow-neonorange/5 transform hover:-translate-y-2">
+                    <div class="h-56 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1561677978-583a8c7a4b43?auto=format&fit=crop&w=800&q=80" alt="和太鼓と復興への祈り" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-night via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-6 sm:p-8">
+                        <div class="text-neonorange font-bold text-xs tracking-widest uppercase mb-2">Reconstruction Support</div>
+                        <h3 class="font-serif text-xl font-bold mb-4 text-white group-hover:text-neonorange transition-colors duration-300">被災地復興支援の願い</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed font-light">
+                            ただ楽しむだけでなく、被災地復興支援を兼ねた伝統芸能の運行も実施。地域の絆、そして他地域との繋がりを深く感じる、温かくも力強い情熱が息づいています。
+                        </p>
+                    </div>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <h2>第４９回小松市どんどんまつり</h2>
-                <p>小松の秋を彩る、熱気と光のサマー＆オータムカーニバル！</p>
+
+    <section id="events" class="py-24 relative overflow-hidden bg-night">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <h2 class="font-display text-3xl sm:text-4xl tracking-wider mb-4 text-white japanese-border pb-4">主な出し物・イベント内容</h2>
+                <p class="text-slate-400 text-sm sm:text-base tracking-wide">
+                    2日間にわたり、小松駅周辺が熱狂に包まれる多彩なプログラム。
+                </p>
             </div>
-            <div class="footer-contact">
-                <h3>お問い合わせ</h3>
-                <p>主催：小松市どんどんまつり実行委員会（小松商工会議所内）</p>
-                <p>TEL：0761-21-3121</p>
-                <a href="https://www.komatsu-dondon.com/" class="footer-btn" target="_blank" rel="noopener noreferrer">公式WEBサイトを見る</a>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <div class="flex flex-col sm:flex-row bg-darkgray border border-white/5 rounded-2xl overflow-hidden hover:border-neonorange/20 transition-all duration-300">
+                    <div class="sm:w-2/5 h-48 sm:h-auto overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=600&q=80" alt="幻想的なあんどんの光" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-darkgray hidden sm:block"></div>
+                    </div>
+                    <div class="sm:w-3/5 p-6 flex flex-col justify-center">
+                        <span class="inline-block px-2.5 py-1 text-[11px] font-bold text-neonorange border border-neonorange/20 bg-neonorange/5 rounded-md mb-3 self-start">あんどん展示</span>
+                        <h3 class="font-serif text-lg font-bold mb-2 text-white">あんどん小径・大型あんどん展示</h3>
+                        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed font-light">
+                            市内小学生の純粋なメッセージが書かれた約300個の小型あんどん等が「れんが花道通り」を幻想的かつ優美に彩り、夜の散策を美しく演出します。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row bg-darkgray border border-white/5 rounded-2xl overflow-hidden hover:border-neongold/20 transition-all duration-300">
+                    <div class="sm:w-2/5 h-48 sm:h-auto overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?auto=format&fit=crop&w=600&q=80" alt="大迫力の祭り" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-darkgray hidden sm:block"></div>
+                    </div>
+                    <div class="sm:w-3/5 p-6 flex flex-col justify-center">
+                        <span class="inline-block px-2.5 py-1 text-[11px] font-bold text-neongold border border-neongold/20 bg-neongold/5 rounded-md mb-3 self-start">伝統芸能</span>
+                        <h3 class="font-serif text-lg font-bold mb-2 text-white">輪島キリコの展示・運行</h3>
+                        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed font-light">
+                            能登の圧倒的な熱気と魂をそのままに感じさせる、大迫力の「輪島キリコ」が会場をダイナミックに練り歩き、観客のボルテージを最高潮に引き上げます。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row bg-darkgray border border-white/5 rounded-2xl overflow-hidden hover:border-neongold/20 transition-all duration-300">
+                    <div class="sm:w-2/5 h-48 sm:h-auto overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=600&q=80" alt="エネルギッシュなダンスステージ" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-darkgray hidden sm:block"></div>
+                    </div>
+                    <div class="sm:w-3/5 p-6 flex flex-col justify-center">
+                        <span class="inline-block px-2.5 py-1 text-[11px] font-bold text-neongold border border-neongold/20 bg-neongold/5 rounded-md mb-3 self-start">新企画・ステージ</span>
+                        <h3 class="font-serif text-lg font-bold mb-2 text-white">ダンスコンテスト＆ステージ</h3>
+                        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed font-light">
+                            全国から選りすぐりのエネルギッシュなダンスチームが集結する新企画！多彩なジャンルが融合するステージパフォーマンスは一瞬たりとも目が離せません。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row bg-darkgray border border-white/5 rounded-2xl overflow-hidden hover:border-neonorange/20 transition-all duration-300">
+                    <div class="sm:w-2/5 h-48 sm:h-auto overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80" alt="美味しい地元グルメ・ピザ" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent to-darkgray hidden sm:block"></div>
+                    </div>
+                    <div class="sm:w-3/5 p-6 flex flex-col justify-center">
+                        <span class="inline-block px-2.5 py-1 text-[11px] font-bold text-neonorange border border-neonorange/20 bg-neonorange/5 rounded-md mb-3 self-start">絶品グルメ</span>
+                        <h3 class="font-serif text-lg font-bold mb-2 text-white">小松YEGグルメブース</h3>
+                        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed font-light">
+                            「グルメ横丁」が出現！小松の新鮮な食材をふんだんに使用した大人気の名物「こまつピザ」など、美味しい地元グルメが一堂に大集合します。
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </div>
-        <div class="copyright">
-            &copy; 2025 小松市どんどんまつり実行委員会. All Rights Reserved.
+    </section>
+
+
+    <section id="access" class="py-24 relative overflow-hidden bg-darkgray">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <h2 class="font-display text-3xl sm:text-4xl tracking-wider mb-4 text-white japanese-border pb-4">開催概要・アクセス</h2>
+                <p class="text-slate-400 text-sm sm:text-base tracking-wide">
+                    事前に日時、開催場所、駐車場情報をご確認の上、ご来場ください。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                
+                <div class="lg:col-span-2 bg-night border border-white/5 rounded-2xl p-6 sm:p-8 shadow-xl">
+                    <h3 class="font-serif text-xl font-bold mb-6 text-white flex items-center">
+                        <span class="w-2 h-6 bg-gradient-to-b from-neonorange to-neongold inline-block mr-3 rounded-full"></span>
+                        インフォメーション
+                    </h3>
+                    
+                    <div class="divide-y divide-white/5 text-sm sm:text-base">
+                        <div class="py-4 flex flex-col sm:flex-row sm:items-center">
+                            <span class="sm:w-1/4 font-bold text-neonorange mb-1 sm:mb-0">開催日時</span>
+                            <span class="sm:w-3/4 text-slate-200">
+                                令和7年（2025年）10月11日（土）～10月12日（日）の2日間
+                            </span>
+                        </div>
+                        <div class="py-4 flex flex-col sm:flex-row sm:items-center">
+                            <span class="sm:w-1/4 font-bold text-neonorange mb-1 sm:mb-0">開催場所</span>
+                            <span class="sm:w-3/4 text-slate-200">
+                                小松駅周辺（駅前れんが花道通り、小松駅前市民公園 など）
+                            </span>
+                        </div>
+                        <div class="py-4 flex flex-col sm:flex-row sm:items-center">
+                            <span class="sm:w-1/4 font-bold text-neonorange mb-1 sm:mb-0">料金・条件</span>
+                            <span class="sm:w-3/4 text-slate-200">
+                                入場無料 <span class="text-xs text-slate-400 ml-2">※飲食ブースや一部イベントでの購入・参加は有料</span>
+                            </span>
+                        </div>
+                        <div class="py-4 flex flex-col sm:flex-row sm:items-start">
+                            <span class="sm:w-1/4 font-bold text-neonorange mb-1 sm:mb-0 pt-0.5">交通アクセス</span>
+                            <span class="sm:w-3/4 text-slate-200">
+                                JR小松駅から徒歩すぐ（非常にアクセスしやすい好立地です）
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-night border border-white/5 rounded-2xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-neongold/5 rounded-full blur-xl"></div>
+                    
+                    <h3 class="font-serif text-xl font-bold mb-6 text-white flex items-center">
+                        <span class="w-2 h-6 bg-gradient-to-b from-neongold to-neonorange inline-block mr-3 rounded-full"></span>
+                        臨時無料駐車場
+                    </h3>
+                    
+                    <div class="space-y-6 text-sm">
+                        <div>
+                            <span class="block font-bold text-neongold mb-2">【利用可能時間】</span>
+                            <p class="text-slate-300 leading-relaxed font-light">
+                                <span class="font-medium text-white">11日(土)：</span> 9:00 〜 21:00<br>
+                                <span class="font-medium text-white">12日(日)：</span> 9:00 〜 18:00
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <span class="block font-bold text-neongold mb-2">【主な駐車場エリア】</span>
+                            <ul class="space-y-2 text-slate-300 font-light list-disc list-inside">
+                                <li>コマツウェイ総合研修センタ北側用地<br><span class="text-xs text-slate-400 pl-4">（こまつの杜北側）</span></li>
+                                <li>小松商工会議所駐車場</li>
+                                <li>小松市役所駐車場 など</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-12 bg-gradient-to-r from-darkgray to-night border border-white/5 rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div>
+                    <h4 class="text-xs font-bold text-slate-400 tracking-widest uppercase mb-1">Inquiry</h4>
+                    <p class="text-lg font-serif font-bold text-white mb-2">小松市どんどんまつり実行委員会（小松商工会議所内）</p>
+                    <p class="text-2xl font-display text-transparent bg-clip-text bg-gradient-to-r from-neonorange to-neongold">TEL: 0761-21-3121</p>
+                </div>
+                <div class="w-full md:w-auto">
+                    <a href="https://www.komatsu-dondon.com/" target="_blank" rel="noopener noreferrer" class="w-full md:w-auto inline-flex items-center justify-center px-6 py-3.5 border border-white/10 hover:border-neongold/40 bg-white/5 hover:bg-white/10 text-white font-bold text-sm tracking-widest rounded-xl transition-all duration-300">
+                        公式WEBサイトへ
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <footer class="bg-night border-t border-white/5 py-12 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-neonorange hover:bg-white/10 transition-all duration-300">
+                    <span class="sr-only">X</span>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:text-neonorange hover:bg-white/10 transition-all duration-300">
+                    <span class="sr-only">Instagram</span>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 5.834a6.166 6.166 0 100 12.332 6.166 6.166 0 000-12.332zm0 2.222a3.944 3.944 0 110 7.888 3.944 3.944 0 010-7.888zm6.787-1.351a1.24 1.24 0 11-2.48 0 1.24 1.24 0 012.48 0z" clip-rule="evenodd"/></svg>
+                </a>
+            </div>
+
+            <p class="text-xs text-slate-500 tracking-wider">
+                &copy; 2025 第49回小松市どんどんまつり実行委員会. All rights reserved.
+            </p>
         </div>
     </footer>
 
